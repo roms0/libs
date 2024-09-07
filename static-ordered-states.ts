@@ -1,63 +1,67 @@
-type State = { goes(): void; does(): void };
+import { HeroState } from "./model";
 
-let first = null as unknown as State;
-let second = null as unknown as State;
-let third = null as unknown as State;
-let forth = null as unknown as State;
+let first = null as unknown as HeroState;
+let second = null as unknown as HeroState;
+let third = null as unknown as HeroState;
+let forth = null as unknown as HeroState;
 
 const hero = {
   state: first,
 };
 
 first = {
-  does() {
-    console.log("first goes");
+  title: "first",
+  reacts() {
+    console.log("first starts");
     hero.state = second;
-    second.goes();
+    second.starts();
   },
-  goes() {
-    console.log("first");
+  starts() {
+    console.log(this.title);
   },
 };
 
 second = {
-  goes() {
-    console.log("second goes");
+  title: "second",
+  starts() {
+    console.log("second starts");
     hero.state = third;
-    third.goes();
+    third.starts();
   },
-  does() {
-    console.log("second");
+  reacts() {
+    console.log(this.title);
   },
 };
 
 third = {
-  goes() {
-    console.log("third goes");
+  title: "third",
+  starts() {
+    console.log("third starts");
   },
-  does() {
-    console.log("third");
+  reacts() {
+    console.log(this.title);
     hero.state = forth;
-    forth.goes();
+    forth.starts();
   },
 };
 
 forth = {
-  goes() {
-    console.log("forth goes");
+  title: "forth",
+  starts() {
+    console.log("forth starts");
   },
-  does() {
-    console.log("forth");
+  reacts() {
+    console.log(this.title);
     hero.state = first;
-    first.goes();
+    first.starts();
   },
 };
 
 hero.state = first;
 
-hero.state.does();
-hero.state.does();
-hero.state.does();
-hero.state.does();
-hero.state.does();
-hero.state.does();
+hero.state.reacts();
+hero.state.reacts();
+hero.state.reacts();
+hero.state.reacts();
+hero.state.reacts();
+hero.state.reacts();
