@@ -4,10 +4,19 @@ export type HeroState = {
   starts(): void;
   reacts(): void;
 };
+export type EstablismentGroup = "recreation" | "production" | "commerce";
+export type EstablishmentDescription = {
+  group: EstablismentGroup;
+};
+export type EstablishmentDescriptions<T extends string> = Record<
+  T,
+  EstablishmentDescription
+>;
 
 // matchwide
 export type Establishments = string[];
 export type EstablishmentsOwnershipState = number[];
+export type EstablishmentGroupsIndeces = number[];
 
 // client-specific ui
 export type EstablishmentConstructionYard = {

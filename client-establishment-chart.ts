@@ -1,11 +1,12 @@
 import {
   EstablishmentConstructionYard,
+  EstablishmentDescriptions,
   Establishments,
   EstablishmentsOwnershipState,
 } from "./model";
 
 export function establishment_chart<T extends string>(
-  table: Record<T, number>,
+  table: EstablishmentDescriptions<T>,
   establishments: Establishments,
   establishment_ownership: EstablishmentsOwnershipState
 ): EstablishmentConstructionYard[] {
