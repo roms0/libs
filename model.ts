@@ -4,9 +4,14 @@ export type HeroState = {
   starts(): void;
   reacts(): void;
 };
-export type EstablismentGroup = "recreation" | "production" | "commerce";
+export enum EstablishmentGroup {
+  recreation,
+  production,
+  commercial,
+}
 export type EstablishmentDescription = {
-  group: EstablismentGroup;
+  group: EstablishmentGroup;
+  count: number;
 };
 export type EstablishmentDescriptions<T extends string> = Record<
   T,
@@ -14,9 +19,10 @@ export type EstablishmentDescriptions<T extends string> = Record<
 >;
 
 // matchwide
-export type Establishments = string[];
+export type Establishments<T extends string> = T[];
 export type EstablishmentsOwnershipState = number[];
 export type EstablishmentGroupsIndeces = number[];
+export type PlayersTable = string[];
 
 // client-specific ui
 export type EstablishmentConstructionYard = {
