@@ -4,6 +4,7 @@ import {
   Establishments,
   EstablishmentsOwnershipState,
   PlayersTable,
+  RecreationEstablishmentsSpendings,
 } from "./model";
 
 export function recreations_spending_sheet<T extends string>(
@@ -11,7 +12,7 @@ export function recreations_spending_sheet<T extends string>(
   establishments: Establishments<T>,
   ownership_state: EstablishmentsOwnershipState,
   establishment_configs: EstablishmentDescriptions<T>
-): number[][] {
+): RecreationEstablishmentsSpendings {
   let sheet: number[][] = players_table.map(() => []);
   establishments.forEach((estalishment, k) => {
     const description = establishment_configs[estalishment];

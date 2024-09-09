@@ -23,6 +23,7 @@ export type Establishments<T extends string> = T[];
 export type EstablishmentsOwnershipState = number[];
 export type EstablishmentGroupsIndeces = number[];
 export type PlayersTable = string[];
+export type RecreationEstablishmentsSpendings = number[][];
 
 // client-specific ui
 export type EstablishmentConstructionYard = {
