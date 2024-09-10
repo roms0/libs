@@ -1,8 +1,9 @@
 // appwide
+type StatePipelineController = (i: number, pie: StatePipeline) => void;
 export type HeroState = {
   title: string;
-  starts(): void;
-  reacts(): void;
+  starts: StatePipelineController;
+  reacts: StatePipelineController;
 };
 export enum EstablishmentGroup {
   recreation,
@@ -17,6 +18,7 @@ export type EstablishmentDescriptions<T extends string> = Record<
   T,
   EstablishmentDescription
 >;
+export type StatePipeline = HeroState[];
 
 // matchwide
 export type Establishments<T extends string> = T[];
