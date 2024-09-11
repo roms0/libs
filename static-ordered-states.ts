@@ -1,67 +1,8 @@
-import { HeroState } from "./model";
+import { start_pipeline } from "./pipeline-state-machine";
+import { state_idle } from "./state-idle";
+import { state_take_dice } from "./state-take-dices";
+import { state_toss_dice } from "./state-toss-dices";
 
-let first = null as unknown as HeroState;
-let second = null as unknown as HeroState;
-let third = null as unknown as HeroState;
-let forth = null as unknown as HeroState;
-
-const hero = {
-  state: first,
-};
-
-first = {
-  title: "first",
-  reacts() {
-    console.log("first starts");
-    hero.state = second;
-    second.starts();
-  },
-  starts() {
-    console.log(this.title);
-  },
-};
-
-second = {
-  title: "second",
-  starts() {
-    console.log("second starts");
-    hero.state = third;
-    third.starts();
-  },
-  reacts() {
-    console.log(this.title);
-  },
-};
-
-third = {
-  title: "third",
-  starts() {
-    console.log("third starts");
-  },
-  reacts() {
-    console.log(this.title);
-    hero.state = forth;
-    forth.starts();
-  },
-};
-
-forth = {
-  title: "forth",
-  starts() {
-    console.log("forth starts");
-  },
-  reacts() {
-    console.log(this.title);
-    hero.state = first;
-    first.starts();
-  },
-};
-
-hero.state = first;
-
-hero.state.reacts();
-hero.state.reacts();
-hero.state.reacts();
-hero.state.reacts();
-hero.state.reacts();
-hero.state.reacts();
+let i = 0;
+const states = [state_idle, state_take_dice, state_toss_dice];
+start_pipeline(states, i);
