@@ -6,9 +6,11 @@ export type HeroState = {
   reacts: StatePipelineController;
 };
 export enum EstablishmentGroup {
-  recreation,
-  production,
-  commercial,
+  service_and_recreation,
+  resource_mining,
+  production_and_commerce,
+  establishment_major,
+  landmarks,
 }
 export type EstablishmentDescription = {
   group: EstablishmentGroup;
@@ -19,6 +21,9 @@ export type EstablishmentDescriptions<T extends string> = Record<
   EstablishmentDescription
 >;
 export type StatePipeline = HeroState[];
+export type Player = {
+  dice_strategy: () => number[];
+};
 
 // matchwide
 export type Establishments<T extends string> = T[];
@@ -26,6 +31,7 @@ export type EstablishmentsOwnershipState = number[];
 export type EstablishmentGroupsIndeces = number[];
 export type PlayersTable = string[];
 export type RecreationEstablishmentsSpendings = number[][];
+export type Dices = number[];
 
 // client-specific ui
 export type EstablishmentConstructionYard = {

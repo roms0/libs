@@ -17,7 +17,7 @@ export function recreations_spending_sheet<T extends string>(
   establishments.forEach((estalishment, k) => {
     const description = establishment_configs[estalishment];
     if (
-      description.group === EstablishmentGroup.commercial &&
+      description.group === EstablishmentGroup.service_and_recreation &&
       ownership_state[k] > -1
     ) {
       sheet[players_table.length - 1 - ownership_state[k]].push(k);
@@ -31,8 +31,8 @@ const sheet = recreations_spending_sheet(
   ["mill", "mill", "field", "mill", "mill"],
   [0, -1, -1, 2, -1],
   {
-    mill: { group: EstablishmentGroup.commercial, count: 0 },
-    field: { group: EstablishmentGroup.production, count: 0 },
+    mill: { group: EstablishmentGroup.service_and_recreation, count: 0 },
+    field: { group: EstablishmentGroup.service_and_recreation, count: 0 },
   }
 );
 console.log(sheet);
