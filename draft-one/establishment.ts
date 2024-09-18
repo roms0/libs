@@ -1,4 +1,5 @@
 import { Establisher } from "./establisher";
+import { Match } from "./match";
 
 export enum Establishment {
   FIELD,
@@ -17,6 +18,7 @@ abstract class EstablishmentDescription {
   abstract cost: number;
   group: EstablishemntGroup;
   abstract effect(owns: Establisher, turns: Establisher): void;
+  abstract effect2?(match: Match): void;
 }
 
 type EstablishmentLookup = { [E in Establishment]: EstablishmentDescription };
