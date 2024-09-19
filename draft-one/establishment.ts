@@ -6,7 +6,7 @@ export enum Establishment {
   CLUB,
 }
 
-enum EstablishemntGroup {
+export enum EstablishemntGroup {
   BLUE,
   GREEN,
   RED,
@@ -17,29 +17,20 @@ enum EstablishemntGroup {
 abstract class EstablishmentDescription {
   abstract cost: number;
   group: EstablishemntGroup;
-  abstract effect(owns: Establisher, turns: Establisher): void;
-  abstract effect2?(match: Match): void;
+  abstract effect(match: Match, oi: number, ti: number): void;
 }
 
 type EstablishmentLookup = { [E in Establishment]: EstablishmentDescription };
 
-const elkp: EstablishmentLookup = {
+export const rules: EstablishmentLookup = {
   [Establishment.FIELD]: {
     cost: 1,
     group: EstablishemntGroup.BLUE,
-    effect(owns) {
-      owns.enroll(5);
-    },
+    effect() {},
   },
   [Establishment.CLUB]: {
     cost: 3,
     group: EstablishemntGroup.RED,
-    effect(owns, turns) {
-      if (owns.has(Establishment.FIELD)) {
-        owns.enroll(turns.hand(2));
-      } else {
-        owns.enroll(turns.hand(1));
-      }
-    },
+    effect() {},
   },
 };

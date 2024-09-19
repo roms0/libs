@@ -1,7 +1,8 @@
 import { Establisher } from "./establisher";
+import { Match } from "./match";
 
 export abstract class State {
   abstract title: string;
-  abstract starts(establisher: Establisher): void;
-  abstract do(establisher: Establisher): void;
+  abstract starts(match: Match, i: number): void;
+  abstract do(match: Match, i: number): void;
 }
