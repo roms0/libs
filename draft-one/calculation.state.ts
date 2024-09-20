@@ -1,8 +1,8 @@
 import { EstablishemntGroup, rules } from "./establishment";
-import { State } from "./state";
+import { forward, State, STATES } from "./state";
 
 export const calculation: State = {
-  title: "calculation",
+  title: STATES.CALCULATION,
   starts() {},
   do(match, ti) {
     const establishments = match.diceChart[match.dice];
@@ -21,5 +21,7 @@ export const calculation: State = {
         }
       );
     });
+    forward(match.establishers[ti]);
+    match.establishers[ti].state.starts(match, ti);
   },
 };

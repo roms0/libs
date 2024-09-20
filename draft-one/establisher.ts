@@ -1,14 +1,6 @@
 import { Establishment } from "./establishment";
 import { State } from "./state";
 
-const test = {
-  title: "test",
-  starts() {},
-  do() {},
-};
-
-const machine: State[] = [test];
-
 export class Establisher {
   establishmentChart: Record<Establishment, number>;
   id: string;
