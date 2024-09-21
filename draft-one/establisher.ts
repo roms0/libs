@@ -6,6 +6,7 @@ export class Establisher {
   id: string;
   state: State;
   balance: number;
+  data?: any;
   enroll(s: number) {
     this.balance += s;
   }

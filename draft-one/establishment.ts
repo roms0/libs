@@ -4,6 +4,7 @@ import { Match } from "./match";
 export enum Establishment {
   FIELD,
   CLUB,
+  BUSINESS,
 }
 
 export enum EstablishemntGroup {
@@ -31,6 +32,11 @@ export const rules: EstablishmentLookup = {
   [Establishment.CLUB]: {
     cost: 3,
     group: EstablishemntGroup.RED,
+    effect() {},
+  },
+  [Establishment.BUSINESS]: {
+    cost: 8,
+    group: EstablishemntGroup.SPECIAL,
     effect() {},
   },
 };
