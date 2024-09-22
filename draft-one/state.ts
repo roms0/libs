@@ -17,6 +17,7 @@ export abstract class State {
   abstract title: STATES;
   abstract starts(match: Match, i: number): void;
   abstract do(match: Match, i: number, command: number): void;
+  abstract data?: unknown;
 }
 
 export function forward(establisher: Establisher) {
