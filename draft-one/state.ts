@@ -1,4 +1,5 @@
 import { calculation } from "./calculation.state";
+import { dice } from "./dice.state";
 import { Establisher } from "./establisher";
 import { idle } from "./idle.state";
 import { Match } from "./match";
@@ -6,18 +7,18 @@ import { swap } from "./swap.state";
 
 export enum STATES {
   IDLE,
+  DICE,
   CALCULATION,
   SWAP,
 }
 
-export const pipe = [idle, calculation, swap];
+export const pipe = [idle, dice, calculation, swap];
 const last = pipe.length - 1;
 
 export abstract class State {
   abstract title: STATES;
   abstract starts(match: Match, i: number): void;
   abstract do(match: Match, i: number, command: number): void;
-  abstract data?: unknown;
 }
 
 export function forward(establisher: Establisher) {

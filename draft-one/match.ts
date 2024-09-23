@@ -7,4 +7,8 @@ export class Match {
   establishers: Establisher[];
   turns: number;
   dice: number;
+  swap: {
+    establishment: Establishment | null;
+    establisher: number | null;
+  };
 }
