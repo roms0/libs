@@ -4,7 +4,7 @@ export const dice: State = {
   title: STATES.DICE,
   starts() {},
   do(match, i) {
-    match.dice = single_dice().reduce((pre, c) => (pre += c), 0);
+    match.dice = single_dice();
     forward(match.establishers[i]);
     match.establishers[i].state.starts(match, i);
   },

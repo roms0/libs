@@ -14,15 +14,19 @@ export const swap: State = {
       match.swap.establisher = command;
       return;
     }
-    if (match.swap.establishment === null) {
-      match.swap.establishment = command;
+    if (match.swap.takeEstablishment === null) {
+      match.swap.takeEstablishment = command;
       return;
     }
     match.establishmentChart[this.data.establishment][
       match.swap.establisher
     ] -= 1;
-    match.establishmentChart[match.swap.establishment][i] += 1;
-    match.swap = { establisher: null, establishment: null };
+    match.establishmentChart[match.swap.takeEstablishment][i] += 1;
+    match.swap = {
+      establisher: null,
+      takeEstablishment: null,
+      handEstablishment: null,
+    };
     forward(match.establishers[i]);
     match.establishers[i].state.starts(match, i);
   },

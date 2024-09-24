@@ -6,9 +6,10 @@ export class Match {
   diceChart: Record<number, Establishment[]>;
   establishers: Establisher[];
   turns: number;
-  dice: number;
+  dice: number[];
   swap: {
-    establishment: Establishment | null;
+    takeEstablishment: Establishment | null;
+    handEstablishment: Establishment | null;
     establisher: number | null;
   };
 }

@@ -5,7 +5,8 @@ export const calculation: State = {
   title: STATES.CALCULATION,
   starts() {},
   do(match, ti) {
-    const establishments = match.diceChart[match.dice];
+    const establishments =
+      match.diceChart[match.dice.reduce((pre, cur) => (cur += pre), 0)];
     establishments.forEach((establishment) => {
       let start = 0;
       const description = rules[establishment];
