@@ -12,6 +12,7 @@ export enum STATES {
   RETOSS,
   CALCULATION,
   SWAP,
+  CAST,
   REPEAT,
 }
 

@@ -1,6 +1,14 @@
 import { Establishment } from "./establishment";
 import { forward, State, STATES } from "./state";
 
+const cast: State = {
+  title: STATES.CAST,
+  starts() {},
+  do(match, i, command) {
+    match.swap.handEstablishment = command;
+  },
+};
+
 export const swap: State = {
   title: STATES.SWAP,
   starts(match, i) {
