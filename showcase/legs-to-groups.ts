@@ -31,18 +31,20 @@ interface ForeignRoute {
   src_office_id: number;
 }
 
-interface Response {
-  legs: {
-    from_office_id: number;
-    routes: ForeignRoute[];
-    to_office_id: number;
-  }[];
+interface RouteLeg {
+  from_office_id: number;
+  routes: ForeignRoute[];
+  to_office_id: number;
+}
+
+interface LegsResponse {
+  legs: RouteLeg[];
   offices: {
     id: number;
   }[];
 }
 
-function groupOfficesFromLegs(res: Response) {
+function groupOfficesFromLegs(res: LegsResponse) {
   const routes = {} as Record<number, number[][]>;
   const startOffices = new Set<number>();
   const transitOffices = new Set<number>();
@@ -68,3 +70,31 @@ function groupOfficesFromLegs(res: Response) {
   });
   return { startOffices, transitOffices, finishOffices };
 }
+
+const ids = [0, 1, 2];
+
+const t: LegsResponse = {
+  offices: ids.map((id) => ({ id })),
+  legs: [
+    {
+      from_office_id: ids[0],
+      to_office_id: ids[1],
+      routes: [
+        { route_id: 100900, src_office_id: ids[0] },
+        { route_id: 100902, src_office_id: ids[0] },
+      ],
+    },
+    {
+      from_office_id: ids[1],
+      to_office_id: ids[0],
+      routes: [{ route_id: 100901, src_office_id: ids[1] }],
+    },
+    {
+      from_office_id: ids[1],
+      to_office_id: ids[2],
+      routes: [{ route_id: 100902, src_office_id: ids[0] }],
+    },
+  ],
+};
+
+console.log(groupOfficesFromLegs(t));
