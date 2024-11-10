@@ -71,6 +71,25 @@ function groupOfficesFromLegs(res: LegsResponse) {
   return { startOffices, transitOffices, finishOffices };
 }
 
+function groups(response: LegsResponse) {
+  const routes = {};
+  response.legs.forEach((leg) => {
+    leg.routes.forEach((route) => {
+      if (!routes[route.route_id]) {
+        routes[route.route_id] = [];
+      }
+      routes[route.route_id].push([leg.from_office_id, leg.to_office_id]);
+    });
+  });
+  console.log(routes);
+  const starts = new Set();
+  const ends = new Set();
+  const transits = new Set();
+  Object.values(routes).forEach((leg) => {
+    console.log(leg);
+  });
+}
+
 const ids = [0, 1, 2];
 
 const t: LegsResponse = {
@@ -97,4 +116,5 @@ const t: LegsResponse = {
   ],
 };
 
-console.log(groupOfficesFromLegs(t));
+// console.log(groupOfficesFromLegs(t));
+groups(t);
