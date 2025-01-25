@@ -3,11 +3,11 @@ import {
   RandomDiceInstruction,
   CornHarvestInstruction,
   IncomeStageInstruction,
-  Item,
   State,
   uid,
   Intention,
   MasterableItem,
+  TransferOwnershipInstruction,
 } from "./commands-intentions-consumers";
 
 class HarvestCornFieldIntention implements Intention {
@@ -25,23 +25,7 @@ class HarvestCornFieldIntention implements Intention {
   }
 }
 
-class DealIntention implements Intention {
-  title = "deal";
-  id: string;
-  client_slots = {
-    ids: [] as string[],
-  };
-  constructor(state: State, master_id: string) {
-    this.id = uid();
-    this.client_slots["ids"] = Object.values(state.items)
-      .filter((item) => "master" in item)
-      .filter((masterable) => masterable.master !== master_id)
-      .map((item) => item.id);
-  }
-  effect(state: State, action: typeof this.client_slots): void {}
-}
-
-class CornFieldItem implements MasterableItem {
+export class CornFieldItem implements MasterableItem {
   title = "corn field";
   id: string;
   isProcessed = false;
@@ -72,23 +56,23 @@ class CornFieldItem implements MasterableItem {
           this.isCooldown = true;
         }
       }
+      if (instruction instanceof TransferOwnershipInstruction) {
+        if (
+          instruction.pre_master_id === this.master &&
+          instruction.data_id === this.id
+        ) {
+          this.master = instruction.master_id;
+        }
+      }
     });
   }
 }
 
 const state = new State();
-const field1 = new CornFieldItem("1");
-const field2 = new CornFieldItem("2");
-const field3 = new CornFieldItem("3");
-[field1, field2, field3].forEach((field) => {
-  state.items[field.id] = field;
-});
-state.add_intention(new DealIntention(state, "2"));
-// state.add_instruction(new IncomeStageInstruction());
-// state.add_instruction(new RandomDiceInstruction(1));
-console.log(JSON.stringify(state, null, 3));
-// setTimeout(() => {
-//   state.update_items();
-//   state.update_intentions();
-//   console.log(state);
-// }, 1000);
+state.add_instruction(new IncomeStageInstruction());
+state.add_instruction(new RandomDiceInstruction(1));
+setTimeout(() => {
+  state.update_items();
+  state.update_intentions();
+  console.log(state);
+}, 1000);

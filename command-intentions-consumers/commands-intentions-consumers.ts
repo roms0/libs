@@ -20,6 +20,9 @@ export class State {
   add_instruction(instruction: Instruction) {
     this.instructions[instruction.id] = instruction;
   }
+  add_item(item: Item) {
+    this.items[item.id] = item;
+  }
 }
 
 export class Instruction {
@@ -35,6 +38,16 @@ export class RandomDiceInstruction extends Instruction {
 }
 
 export class IncomeStageInstruction extends Instruction {}
+
+export class TransferOwnershipInstruction extends Instruction {
+  constructor(
+    public pre_master_id: string,
+    public master_id: string,
+    public data_id: string
+  ) {
+    super();
+  }
+}
 
 export class IncomeInstruction extends Instruction {
   constructor(
