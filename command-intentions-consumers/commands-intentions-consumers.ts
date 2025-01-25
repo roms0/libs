@@ -6,25 +6,19 @@ export class State {
   instructions: Record<string, Instruction> = {};
   items: Record<string, Item> = {};
   intentions: Record<string, Intention> = {};
-  read() {
+  update_intentions() {
     this.intentions = {};
-    Object.values(this.items).forEach((item) => item.read(this));
+    Object.values(this.items).forEach((item) => item.intent(this));
   }
-  react() {
-    Object.values(this.items).forEach((item) => item.react(this.instructions));
+  update_items() {
+    Object.values(this.items).forEach((item) => item.update(this));
+    this.instructions = {};
   }
   add_intention(intention: Intention) {
     this.intentions[intention.id] = intention;
   }
   add_instruction(instruction: Instruction) {
     this.instructions[instruction.id] = instruction;
-  }
-}
-
-class Intention {
-  id: string;
-  constructor() {
-    this.id = uid();
   }
 }
 
@@ -63,19 +57,19 @@ export class CornHarvestInstruction extends Instruction {
   }
 }
 
-export class Item {
+export abstract class Item {
   id: string;
-  constructor() {
-    this.id = uid();
-  }
-  read(state: State) {}
-  react(instructions: Record<string, Instruction>) {}
+  abstract intent(state: State): void;
+  abstract update(state: State): void;
 }
 
-export class CornProductsItem extends Item {
+export abstract class MasterableItem extends Item {
+  master: string;
+}
+
+export abstract class Intention {
+  id: string;
   title: string;
-  constructor() {
-    super();
-    this.title = "corn_products";
-  }
+  client_slots: Record<string, unknown>;
+  abstract effect(state: State, action: unknown): void;
 }
