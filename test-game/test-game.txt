@@ -1,0 +1,41 @@
+man
+    tosses: number[]
+man
+    tosses: number[]
+man
+    tosses: number[]
+dice
+    points: number
+turn
+    master-id: 1
+table
+    sequence: {
+        1: 2
+        2: 3
+        3: 1
+    }
+
+table creates turn
+
+intentions
+    1. dice-intention: turn master-id
+        messages
+            dice-toss-message
+
+messages
+    1. dice-toss-message
+        dice
+            dice.points = points
+            PASS points-message points
+
+    2. points-message points
+        man
+            man.tosses push points
+        table
+            PASS master-id: table.sequence[toss-points.master-id]
+
+    3. pass-message: master-id
+        turn
+            create turn master-id
+            delete turn
+
