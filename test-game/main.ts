@@ -58,29 +58,31 @@ export class State {
   }
 }
 
-export function loop(message: Payload, state: State, broadcast: () => void) {
+export async function loop(
+  message: Payload,
+  state: State,
+  broadcast: () => void
+) {
   const handler = state.handlers[message.handler_id];
   const messages = handler.handle(message);
   state.handlers = {};
-  state.message_pointer = 0;
   state.messages = messages;
-  while (state.message_pointer < state.messages.length) {
+  for (let i = 0; i < state.messages.length; i++) {
+    state.message_pointer = i;
     for (const item_key in state.items) {
       state.items[item_key].message(
         state.messages[state.message_pointer],
         state,
         state.items[item_key]
       );
-      //   broadcast();
     }
-    state.message_pointer += 1;
+    broadcast();
+    await new Promise((res) => setTimeout(res, 800));
   }
-  state.message_pointer += 1;
   for (const item_key in state.items) {
     state.items[item_key].intentions(state);
   }
   state.messages = [];
-  broadcast();
 }
 
 export {};

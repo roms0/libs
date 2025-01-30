@@ -12,7 +12,7 @@ export class Dice extends Item {
   }
   message(message: Message, state: State): void {
     if (message instanceof DiceMessage) {
-      this.points = 10;
+      this.points = Number(uid());
       state.add(new DicePointsTossedMessage(this.points, message.master_id));
     }
   }

@@ -17,15 +17,14 @@ state.add(new Turn(misha.id));
 const dice_handler = new DiceHandler(misha.id);
 state.add(dice_handler);
 
-console.log(state);
-loop({ state_id: state.id, handler_id: dice_handler.id }, state, () => {
-  console.log(state);
+await loop({ state_id: state.id, handler_id: dice_handler.id }, state, () => {
+  console.log(state.messages[state.message_pointer]);
 });
 const nhid = Object.values(state.handlers).find(
   (handler) => handler.title === "dice handler"
 )?.id;
 if (nhid) {
   loop({ state_id: state.id, handler_id: nhid }, state, () => {
-    console.log(state);
+    console.log(state.messages[state.message_pointer]);
   });
 }
