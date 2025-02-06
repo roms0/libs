@@ -1,20 +1,18 @@
 import {
-  furniture_production_line,
-  large_forest_landuse,
-  small_forest_landuse,
-  small_furniture_showroom,
+  default_dice_card,
+  radiostation_card,
+  train_station,
 } from "./entities/suite";
-import { woods_revenue } from "./rules/woods-revenue";
+import { dice_rule } from "./rules/dice-rule";
+import { radiostation_rule } from "./rules/radiostation-rule";
 
-const items = [
-  small_furniture_showroom,
-  small_furniture_showroom,
-  furniture_production_line,
-  small_forest_landuse,
-  large_forest_landuse,
-  large_forest_landuse,
-];
+const items = [default_dice_card, train_station, radiostation_card];
 
-woods_revenue(items);
-
+dice_rule(items);
+console.log(items);
+radiostation_rule(items);
+console.log(items);
+dice_rule(items);
+console.log(items);
+radiostation_rule(items);
 console.log(items);
