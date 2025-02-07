@@ -16,3 +16,7 @@ dice_rule(items);
 console.log(items);
 radiostation_rule(items);
 console.log(items);
+
+// billings rule
+// dice rule
+// radiostation rule

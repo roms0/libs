@@ -1,7 +1,7 @@
 const request_component = "request_component";
 
 type RequestComponent = {
-  [request_component]: boolean;
+  [request_component]: number;
 };
 
 function is_request_component(item: any): item is RequestComponent {
@@ -10,7 +10,7 @@ function is_request_component(item: any): item is RequestComponent {
   }
   if (
     request_component in item &&
-    typeof item[request_component] === "boolean"
+    typeof item[request_component] === "number"
   ) {
     return true;
   }

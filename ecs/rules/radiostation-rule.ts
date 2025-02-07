@@ -2,7 +2,7 @@ import { is_charges_component } from "../components/charges-component";
 import {
   is_points_supplier,
   PointsSupplierComponent,
-} from "../components/points-supplier";
+} from "../components/points-supplier-component";
 import { is_radiostation_title } from "../components/title-component";
 
 function radiostation_rule(items: unknown[]) {
