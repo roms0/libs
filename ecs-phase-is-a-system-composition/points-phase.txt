@@ -1,0 +1,9 @@
+1 condition start:
+each points supplier = null
+
+2 inputs:
+touched 1 = points supplier
+points supplier length = [...]
+
+3 condition finish:
+some points supplier != null 
