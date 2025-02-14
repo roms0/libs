@@ -41,6 +41,7 @@ const state = {
     fee: 10,
     placement: 1,
     activation: 1,
+    points: 5,
   },
   "22": {
     id: "22",
@@ -48,6 +49,7 @@ const state = {
     fee: 2,
     placement: 2,
     activation: 2,
+    points: 7,
   },
 };
 
