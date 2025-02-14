@@ -1,20 +1,18 @@
-type Transaction = {
-  amount: number;
-  address: string;
-  source: string;
-  time: number;
-};
+class Transaction {
+  public time: number;
+  public id: string;
+  constructor(
+    public address: string,
+    public source: string,
+    public amount: number
+  ) {
+    this.time = Date.now();
+    this.id = Math.trunc(Math.random() * 1000) + "";
+  }
+}
 
 function is_transaction(item: any): item is Transaction {
-  return (
-    typeof item === "object" &&
-    ["amount", "time"].every(
-      (key) => key in item && typeof item[key] === "number"
-    ) &&
-    ["address", "source"].every(
-      (key) => key in item && typeof item[key] === "string"
-    )
-  );
+  return item instanceof Transaction;
 }
 
 export { is_transaction, Transaction };

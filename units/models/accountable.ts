@@ -1,4 +1,5 @@
 type Accountable = {
+  id: string;
   balance: number;
 };
 
@@ -10,4 +11,4 @@ function is_accountable(item: any): item is Accountable {
   );
 }
 
-export { is_accountable };
+export { is_accountable, Accountable };
