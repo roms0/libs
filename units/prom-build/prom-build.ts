@@ -6,7 +6,7 @@ import {
 
 function prom_build(items: Record<string, unknown>) {
   const state = get_state(items);
-  const main = state.get_main();
+  const main = state.get_main(items);
   const unsorted: PromenadeLocation[] = [];
   const sorted: PromenadeLocation[] = [];
   Object.keys(items).forEach((key) => {
@@ -37,9 +37,9 @@ const state = {
   turn: 7,
   queue: ["1", "2", "3", "4"],
   prom_pos: 0,
-  get_main() {
+  get_main(items) {
     const id = this.queue[this.turn % this.queue.length];
-    return { id, balance: 10 };
+    return items[id];
   },
   get_match(p: number) {
     return true;

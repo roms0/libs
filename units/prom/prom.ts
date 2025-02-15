@@ -5,7 +5,7 @@ import { Transaction } from "../models/transaction";
 
 function prom(items: Record<string, unknown>) {
   const state = get_state(items);
-  const main = state.get_main();
+  const main = state.get_main(items);
   let progress = 0;
   Object.keys(items).forEach((key) => {
     if (
@@ -27,7 +27,7 @@ function prom(items: Record<string, unknown>) {
 
 const state = {
   state: {
-    get_main() {
+    get_main(items) {
       return { id: "1", balance: 6 };
     },
     get_match(p: number) {

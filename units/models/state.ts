@@ -5,7 +5,7 @@ type State = {
   queue: string[];
   prom_length: number;
   prom_pos: number;
-  get_main: () => Accountable;
+  get_main: (items: Record<string, unknown>) => Accountable;
   points: number[];
   get_match: (points: number) => boolean;
 };
