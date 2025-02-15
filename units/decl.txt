@@ -1,0 +1,35 @@
+game
+state
+    get_main accountable
+    turn
+    table
+
+phase points
+    001 skip if suppliers some points != null
+    .
+    1 system read supplier
+    2 system enable consumers
+
+phase prom
+    002 skip if promenade items every enabled = false
+    .
+    3 system position promenade items
+    4 system read promenades
+    5 system billing
+
+phase earn
+    003 skip if earn items every enabled = false
+    .
+    6 system read eanings
+    5 system billing
+
+phase build
+    004 skip if some blueprint enabled = true
+    005 skip if every blueprint cost > main balance
+    .
+    7 system building (blueprint = enabled, create pay, create establishment)
+    5 system billing
+
+phase fin (if state.phase = null)
+    8 system cooldown (all enabled = true > enabled = false)
+    9 system transit (turn + 1)
