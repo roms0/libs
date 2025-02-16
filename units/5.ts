@@ -1,6 +1,6 @@
 import { Data, State, isBalance, isPlacement, isTransaction } from "./types";
 
-export function billing(state: State, data: Data) {
+export function billing(state: State, data: Data, debug = false) {
   const transactions = Object.values(data).filter((item) =>
     isTransaction(item)
   );
@@ -8,13 +8,16 @@ export function billing(state: State, data: Data) {
   priors
     .sort((a, b) => a.placement - b.placement)
     .forEach((trans) => {
-      if (isBalance(trans.source) && isBalance(trans.address)) {
+      const source = data[trans.source];
+      const address = data[trans.address];
+      if (isBalance(source) && isBalance(address)) {
         const diff =
-          trans.source.balance >= trans.amount
-            ? trans.amount
-            : trans.source.balance;
-        trans.address.balance += diff;
-        trans.source.balance -= diff;
+          source.balance >= trans.amount ? trans.amount : source.balance;
+        address.balance += diff;
+        source.balance -= diff;
+        if (debug) {
+          console.log(trans.source + " - " + diff + " -> " + trans.address);
+        }
       }
       delete data[trans.id];
     });

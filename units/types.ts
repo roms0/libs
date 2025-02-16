@@ -23,24 +23,31 @@ export function master(item: any, value: string) {
 }
 
 export type Points = {
-  points: number[] | null;
-  dices: number;
+  points?: number[];
 } & ID;
 export function isPoints(item: any): item is Points {
-  return (
-    "points" in item &&
-    typeof item.points === "number" &&
-    "dices" in item &&
-    (Array.isArray(item.dices) || !item.dices)
-  );
+  return "points" in item && Array.isArray(item.points);
 }
 export function points(
   item: any,
-  dices: number,
-  points: number[] | null = null
+  points: number[] = isDices(item)
+    ? new Array(item.dices)
+        .fill(undefined)
+        .map(() => Math.trunc(Math.random() * 10))
+    : []
 ) {
-  item["dices"] = dices;
   item["points"] = points;
+  return item;
+}
+
+export type Dices = {
+  dices: number;
+} & ID;
+export function isDices(item: any): item is Dices {
+  return "dices" in item && typeof item.dices === "number";
+}
+export function dices(item: any, count: number) {
+  item["dices"] = count;
   return item;
 }
 
@@ -62,21 +69,14 @@ export function touch(item: any, touched: number, whom: string) {
   return item;
 }
 
-export type Enable = {
-  enabled: boolean;
-  enable_condition: number[];
+export type PointsConsumer = {
+  points_consumer: number[];
 } & ID;
-export function isEnabled(item: any): item is Enable {
-  return (
-    "enabled" in item &&
-    typeof item.enabled === "boolean" &&
-    "condition" in item &&
-    Array.isArray(item.condition)
-  );
+export function isPointsConsumer(item: any): item is PointsConsumer {
+  return "points_consumer" in item && Array.isArray(item["points_consumer"]);
 }
-export function enable(item: any, enabled: boolean, condition: number[]) {
-  item["enabled"] = enabled;
-  item["condition"] = condition;
+export function pointsConsumer(item: any, consume: number[]) {
+  item["points_consumer"] = consume;
   return item;
 }
 
@@ -140,9 +140,9 @@ export class State {
   constructor(public table: string[]) {
     this.turn = this.table.length;
   }
-  turns(data: Data): Balance {
+  turns(data: Data): Balance & Placement {
     const id = this.table[this.turn % this.table.length];
-    return data[id] as Balance;
+    return data[id] as Balance & Placement;
   }
 }
 
@@ -167,6 +167,6 @@ export function isTransaction(item: any): item is Amount & Address & Source {
 
 export function isPromenadeEstablishment(
   item: any
-): item is Fee & Enable & Master {
-  return isFee(item) && isEnabled(item) && isMaster(item);
+): item is Fee & PointsConsumer & Master {
+  return isFee(item) && isPointsConsumer(item) && isMaster(item);
 }

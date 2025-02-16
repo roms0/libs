@@ -1,13 +1,10 @@
-import { Data, isMaster, isPoints, Points, State } from "./types";
+import { Data, isDices, isMaster, isPoints, State } from "./types";
 
 export function some_supplier_supplied_points(state: State, data: Data) {
-  return Object.keys(data)
-    .filter(
-      (id) =>
-        isPoints(data[id]) &&
-        isMaster(data[id]) &&
-        data[id].master === state.turns(data).id
-    )
-    .map((id) => data[id])
-    .some((item) => (item as Points).dices !== null);
+  const suppliers = Object.values(data).filter(
+    (item) => isDices(item) && isMaster(item)
+  );
+  return suppliers.some(
+    (supplier) => supplier.master === state.turns(data).id && isPoints(supplier)
+  );
 }
