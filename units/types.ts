@@ -80,21 +80,58 @@ export function enable(item: any, enabled: boolean, condition: number[]) {
   return item;
 }
 
-export type Promenade = {
+export type Fee = {
   fee: number;
-  placement: number | null;
 } & ID;
-export function isPromenade(item: any): item is Promenade {
-  return (
-    "fee" in item &&
-    typeof item.fee === "number" &&
-    "placement" in item &&
-    (typeof item.placement === "number" || item.placement === null)
-  );
+export function isFee(item: any): item is Fee {
+  return "fee" in item && typeof item.fee === "number";
 }
-export function promenade(item: any, fee: number) {
+export function fee(item: any, fee: number) {
   item["fee"] = fee;
-  item["placement"] = null;
+  return item;
+}
+
+export type Placement = {
+  placement: number;
+} & ID;
+export function isPlacement(item: any): item is Placement {
+  return "placement" in item && typeof item.placement === "number";
+}
+export function placement(item: any, placement: number) {
+  item["placement"] = placement;
+  return item;
+}
+
+export type Amount = {
+  amount: number;
+} & ID;
+export function isAmount(item: any): item is Amount {
+  return "amount" in item && typeof item.amount === "number";
+}
+export function amount(item: any, amount: number) {
+  item["amount"] = amount;
+  return item;
+}
+
+export type Address = {
+  address: string;
+} & ID;
+export function isAddress(item: any): item is Amount {
+  return "address" in item && typeof item.address === "string";
+}
+export function address(item: any, address: string) {
+  item["address"] = address;
+  return item;
+}
+
+export type Source = {
+  source: string;
+} & ID;
+export function isSource(item: any): item is Amount {
+  return "source" in item && typeof item.source === "string";
+}
+export function source(item: any, source: string) {
+  item["source"] = source;
   return item;
 }
 
@@ -114,4 +151,22 @@ export class Item {
   constructor() {
     this.id = Math.trunc(Math.random() * 1000) + "";
   }
+}
+
+export function transaction(sum: number, to: string, from: string) {
+  const item = new Item();
+  address(item, to);
+  source(item, from);
+  amount(item, sum);
+  return item;
+}
+
+export function isTransaction(item: any): item is Amount & Address & Source {
+  return isAddress(item) && isAmount(item) && isSource(item);
+}
+
+export function isPromenadeEstablishment(
+  item: any
+): item is Fee & Enable & Master {
+  return isFee(item) && isEnabled(item) && isMaster(item);
 }
