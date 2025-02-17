@@ -25,7 +25,4 @@ export function read_proms(state: State, data: Data) {
       placement(main, item.placement);
     }
   });
-  // placedPromenades.forEach((item) => {
-  //   item.placement -= step;
-  // });
 }

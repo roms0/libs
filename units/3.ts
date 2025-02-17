@@ -14,7 +14,9 @@ export function position_proms(state: State, data: Data, debug = false) {
   if (!points) {
     return;
   }
-  const promenades = Object.values(data).filter(isPromenadeEstablishment);
+  const promenades = Object.values(data).filter((item) =>
+    isPromenadeEstablishment(item)
+  );
   promenades.forEach((item) => {
     delete (item as { placement?: number }).placement;
   });

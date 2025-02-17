@@ -159,6 +159,7 @@ export function cost(item: any, cost: number) {
 
 export class State {
   public turn: number;
+  public balance = 100;
   constructor(public table: string[]) {
     this.turn = this.table.length;
   }

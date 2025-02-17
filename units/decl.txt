@@ -4,6 +4,9 @@ state
     turn
     table
 
+0001 touch system
+0002 untouch system
+
 phase points
     001 skip if suppliers some points != null
     .
@@ -28,7 +31,7 @@ phase build
     004 skip if some item master & established item.established = state.turn
     005 skip if every blueprint cost > main balance
     .
-    7 system building (blueprint = enabled, create pay, create establishment)
+    7 system building (create pay, create establishment)
     5 system billing
 
 phase fin (if state.phase = null)
