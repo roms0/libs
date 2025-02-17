@@ -1,8 +1,8 @@
-export type Data = Record<string, object>;
 export type ID = { id: string };
+export type Data = Record<string, ID>;
 export type Balance = {
   balance: number;
-} & ID;
+};
 export function isBalance(item: any): item is Balance {
   return "balance" in item && typeof item.balance === "number";
 }
@@ -13,7 +13,7 @@ export function balance(item: any, value: number) {
 
 export type Master = {
   master: string;
-} & ID;
+};
 export function isMaster(item: any): item is Master {
   return "master" in item && typeof item.master === "string";
 }
@@ -24,7 +24,7 @@ export function master(item: any, value: string) {
 
 export type Points = {
   points?: number[];
-} & ID;
+};
 export function isPoints(item: any): item is Points {
   return "points" in item && Array.isArray(item.points);
 }
@@ -42,7 +42,7 @@ export function points(
 
 export type Dices = {
   dices: number;
-} & ID;
+};
 export function isDices(item: any): item is Dices {
   return "dices" in item && typeof item.dices === "number";
 }
@@ -54,7 +54,7 @@ export function dices(item: any, count: number) {
 export type Touch = {
   touched: number;
   whom: string;
-} & ID;
+};
 export function isTouched(item: any): item is Touch {
   return (
     "touched" in item &&
@@ -71,7 +71,7 @@ export function touch(item: any, touched: number, whom: string) {
 
 export type PointsConsumer = {
   points_consumer: number[];
-} & ID;
+};
 export function isPointsConsumer(item: any): item is PointsConsumer {
   return "points_consumer" in item && Array.isArray(item["points_consumer"]);
 }
@@ -82,7 +82,7 @@ export function pointsConsumer(item: any, consume: number[]) {
 
 export type Fee = {
   fee: number;
-} & ID;
+};
 export function isFee(item: any): item is Fee {
   return "fee" in item && typeof item.fee === "number";
 }
@@ -93,7 +93,7 @@ export function fee(item: any, fee: number) {
 
 export type Placement = {
   placement: number;
-} & ID;
+};
 export function isPlacement(item: any): item is Placement {
   return "placement" in item && typeof item.placement === "number";
 }
@@ -104,7 +104,7 @@ export function placement(item: any, placement: number) {
 
 export type Amount = {
   amount: number;
-} & ID;
+};
 export function isAmount(item: any): item is Amount {
   return "amount" in item && typeof item.amount === "number";
 }
@@ -115,7 +115,7 @@ export function amount(item: any, amount: number) {
 
 export type Address = {
   address: string;
-} & ID;
+};
 export function isAddress(item: any): item is Amount {
   return "address" in item && typeof item.address === "string";
 }
@@ -126,7 +126,7 @@ export function address(item: any, address: string) {
 
 export type Source = {
   source: string;
-} & ID;
+};
 export function isSource(item: any): item is Amount {
   return "source" in item && typeof item.source === "string";
 }
@@ -135,14 +135,36 @@ export function source(item: any, source: string) {
   return item;
 }
 
+export type Established = {
+  established: number;
+};
+export function isEstablished(item: any): item is Established {
+  return "established" in item && typeof item.established === "number";
+}
+export function establish(item: any, turn: number) {
+  item["established"] = turn;
+  return item;
+}
+
+export type Cost = {
+  cost: number;
+};
+export function isCost(item: any): item is Cost {
+  return "cost" in item && typeof item.cost === "number";
+}
+export function cost(item: any, cost: number) {
+  item["cost"] = cost;
+  return item;
+}
+
 export class State {
   public turn: number;
   constructor(public table: string[]) {
     this.turn = this.table.length;
   }
-  turns(data: Data): Balance & Placement {
+  turns(data: Data): Balance & Placement & ID {
     const id = this.table[this.turn % this.table.length];
-    return data[id] as Balance & Placement;
+    return data[id] as ID & Balance & Placement;
   }
 }
 

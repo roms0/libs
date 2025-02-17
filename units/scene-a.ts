@@ -14,16 +14,9 @@ import {
   touch,
 } from "./types";
 
-const masha = new Item();
-const misha = new Item();
-const sasha = new Item();
-balance(masha, 50);
-balance(misha, 50);
-balance(sasha, 50);
-
 const data = {};
 
-function create(desc: [Function, any][]) {
+function create(...desc: [Function, any][]) {
   const item = new Item();
   desc.forEach((d) => {
     d[0](item, ...d[1]);
@@ -32,68 +25,71 @@ function create(desc: [Function, any][]) {
   return item;
 }
 
-const mashas_dice = create([
-  [dices, [2]],
-  [master, [masha.id]],
-]);
+function component(Function, any): [Function, any[]] {
+  return [Function, [any]];
+}
 
-create([
-  [dices, [2]],
-  [master, [misha.id]],
-]);
+const masha = create(component(balance, 50));
 
-create([
-  [dices, [3]],
-  [master, [sasha.id]],
-]);
+const misha = create(component(balance, 50));
 
-const dice_cons_misha_1 = new Item();
-master(dice_cons_misha_1, misha.id);
-pointsConsumer(dice_cons_misha_1, [2]);
-fee(dice_cons_misha_1, 15);
+const sasha = create(component(balance, 50));
 
-const dice_cons_misha_2 = new Item();
-master(dice_cons_misha_2, misha.id);
-pointsConsumer(dice_cons_misha_2, [3]);
-fee(dice_cons_misha_2, 14);
+const mashas_dice = create(component(dices, 2), component(master, masha.id));
 
-const dice_cons_misha_3 = new Item();
-master(dice_cons_misha_3, misha.id);
-pointsConsumer(dice_cons_misha_3, [4]);
-fee(dice_cons_misha_3, 22);
+create(component(dices, 2), component(master, misha.id));
 
-const dice_cons_sasha_1 = new Item();
-master(dice_cons_sasha_1, sasha.id);
-pointsConsumer(dice_cons_sasha_1, [7]);
-fee(dice_cons_sasha_1, 53);
+create(component(dices, 1), component(master, sasha.id));
 
-const dice_cons_sasha_2 = new Item();
-master(dice_cons_sasha_2, sasha.id);
-pointsConsumer(dice_cons_sasha_2, [4]);
-fee(dice_cons_sasha_2, 31);
+create(
+  component(master, sasha.id),
+  component(pointsConsumer, [2, 3, 4]),
+  component(fee, 15)
+);
 
-const dice_cons_masha_1 = new Item();
-master(dice_cons_masha_1, masha.id);
-pointsConsumer(dice_cons_masha_1, [8]);
-fee(dice_cons_masha_1, 10);
+create(
+  component(master, masha.id),
+  component(pointsConsumer, [3, 1, 5]),
+  component(fee, 14)
+);
 
-const dice_cons_masha_2 = new Item();
-master(dice_cons_masha_2, masha.id);
-pointsConsumer(dice_cons_masha_2, [5]);
-fee(dice_cons_masha_2, 28);
+create(
+  component(master, sasha.id),
+  component(pointsConsumer, [4, 9]),
+  component(fee, 8)
+);
 
-const items = [
-  masha,
-  misha,
-  sasha,
-  dice_cons_misha_1,
-  dice_cons_misha_2,
-  dice_cons_misha_3,
-  dice_cons_sasha_1,
-  dice_cons_sasha_2,
-  dice_cons_masha_1,
-  dice_cons_masha_2,
-];
+create(
+  component(master, sasha.id),
+  component(pointsConsumer, [5, 10]),
+  component(fee, 18)
+);
+
+create(
+  component(master, sasha.id),
+  component(pointsConsumer, [6, 7]),
+  component(fee, 28)
+);
+
+create(
+  component(master, sasha.id),
+  component(pointsConsumer, [7, 0]),
+  component(fee, 14)
+);
+
+create(
+  component(master, masha.id),
+  component(pointsConsumer, [8, 0]),
+  component(fee, 44)
+);
+
+create(
+  component(master, masha.id),
+  component(pointsConsumer, [9, 1, 2, 3, 4]),
+  component(fee, 4)
+);
+
+const items = [masha, misha, sasha];
 
 items.forEach((item) => {
   data[item.id] = item;
