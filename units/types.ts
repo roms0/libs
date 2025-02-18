@@ -157,6 +157,16 @@ export function cost(item: any, cost: number) {
   return item;
 }
 
+export type Agriculture = {
+  argiculture: 2;
+};
+export function isAgriculture(item: any): item is Agriculture {
+  return "argiculture" in item && typeof item.argiculture === "number";
+}
+export function agriculture(item: any, income: number) {
+  item["argiculture"] = income;
+}
+
 export class State {
   public turn: number;
   public balance = 100;
@@ -192,4 +202,11 @@ export function isPromenadeEstablishment(
   item: any
 ): item is Fee & PointsConsumer & Master {
   return isFee(item) && isPointsConsumer(item) && isMaster(item);
+}
+
+type ProductionIncome = Agriculture;
+export function isProductionEstablishment(
+  item: any
+): item is ProductionIncome & Master & PointsConsumer {
+  return isMaster(item) && isPointsConsumer(item) && isAgriculture(item);
 }

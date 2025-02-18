@@ -9,10 +9,12 @@ state
 
 phase points
     001 skip if suppliers some points != null
+    001a play if every supplier points = null
     .
     1   system read supplier
     2   DEPRECATED system enable consumers
     3   system place enabled promenade items
+    10  system place production items
 
 phase prom
     002 DEPRECATED skip if every promenade item doesn't have placement
@@ -23,6 +25,7 @@ phase prom
 
 phase earn
     003 N/I DEPRECATED skip if earn items every enabled = false
+    003a play if some production item position > main position
     .
     6 system read eanings
     5 system billing
