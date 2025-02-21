@@ -28,6 +28,7 @@ export function read_supplier(state: State, data: Data) {
       .fill(undefined)
       .map(() => Math.trunc(Math.random() * 10))
   );
+  console.log(supplier);
 }
 
 export function read_points_supplier(state: State, data: Data) {

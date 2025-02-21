@@ -1,5 +1,5 @@
 import { has_promenades_to_visit } from "./002a";
-import { read_points_supplier } from "./1";
+import { read_points_supplier, read_supplier } from "./1";
 import { position_proms } from "./3";
 import { read_proms } from "./4";
 import { billing } from "./5";
@@ -36,6 +36,7 @@ const misha = create(component(balance, 50));
 const sasha = create(component(balance, 50));
 
 const mashas_dice = create(component(dices, 2), component(master, masha.id));
+const dice = create(component(dices, 1));
 
 create(component(dices, 2), component(master, misha.id));
 
@@ -105,6 +106,7 @@ function untouch() {
 
 const id = state.turns(data).id;
 touch(mashas_dice, 1, masha.id);
+read_supplier(state, data);
 read_points_supplier(state, data);
 untouch();
 const positioned = position_proms(state, data, true);
