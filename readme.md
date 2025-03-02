@@ -31,3 +31,33 @@ phase build
 phase fin (if state.phase = null)
 8 N/I DEPRECATED system cooldown (all enabled = true > enabled = false)
 9 system transit (turn + 1)
+
+touches
+reads points
+positions
+reads promenade
+passes turn
+bills
+clears
+
+passes turn
+at leats 1 supplier has points
+main promenade position > position items
+
+cost 5
+rest 1
+
+arrange
+some position item has corresponding points
+main position is 0
+
+position
+
+building system
+don't do if some main's item has fresh age
+assign
+
+pass turn system
+some position item has corresponding points?
+main position = further position
+
